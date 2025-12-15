@@ -1,15 +1,320 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JulianaTech</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hibrida – Hybrid Prediction Exchange</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- App CSS (Flask static) -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
 </head>
 <body>
-  <h1>Welcome to JulianaTech</h1>
-  <p>Your Flask project is running.</p>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-left">
+      <div class="brand">
+        <span class="brand-icon">⬢</span>
+        <div class="brand-text">
+          <span class="brand-title">Hibrida</span>
+          <span class="brand-subtitle">Hybrid Prediction Exchange</span>
+        </div>
+      </div>
+    </div>
 
+    <div class="nav-center">
+      <a href="#" class="nav-link active" data-section="markets">Markets</a>
+      <a href="#" class="nav-link" data-section="portfolio">Portfolio</a>
+      <a href="#" class="nav-link" data-section="lp-desk">LP Desk</a>
+    </div>
+
+    <div class="nav-right">
+      <div class="balance-pill">
+        <span class="balance-label">Demo balance</span>
+        <span id="balanceValue" class="balance-value">Connect wallet</span>
+      </div>
+      <button id="connectMetamaskBtn" class="btn btn-secondary">Connect Wallet</button>
+      <button class="btn btn-primary create-market-btn">+ New Market</button>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- MARKETS SECTION -->
+    <section id="markets" class="section active">
+      <div class="section-header">
+        <h1 class="section-title">Live Hybrid Markets</h1>
+        <p class="section-subtitle">
+          Trade YES/NO probabilities on crypto, macro, politics and sports. Routing engine combines
+          order book + AMM + LP liquidity into a single hybrid price.
+        </p>
+      </div>
+
+      <!-- High-level stats -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-label">Open Markets</div>
+          <div class="stat-value" id="statMarketsCount">–</div>
+          <div class="stat-detail">Order book + AMM backed</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">AMM Liquidity</div>
+          <div class="stat-value" id="statAmmLiquidity">–</div>
+          <div class="stat-detail">Backed by LP pool</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">LP Pool</div>
+          <div class="stat-value" id="statLpPool">–</div>
+          <div class="stat-detail">Earns trading fees</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Fee / Trade</div>
+          <div class="stat-value">2%</div>
+          <div class="stat-detail">Routed to LPs (simulation)</div>
+        </div>
+      </div>
+
+      <!-- Markets grid (built by JS) -->
+      <div id="marketsContainer" class="markets-grid"></div>
+
+      <p id="noMarketsMessage" class="empty-hint" style="display: none;">
+        No markets yet. Click <strong>+ New Market</strong> to create the first one.
+      </p>
+    </section>
+
+    <!-- PORTFOLIO SECTION -->
+    <section id="portfolio" class="section">
+      <div class="section-header">
+        <h1 class="section-title">Your Portfolio</h1>
+        <p class="section-subtitle">
+          Track your open positions, realised payouts and hybrid exposure across all Hibrida markets.
+        </p>
+      </div>
+
+      <div class="portfolio-wrapper">
+        <div class="portfolio-summary">
+          <div class="summary-item">
+            <span class="summary-label">Demo balance</span>
+            <span id="portfolioBalance" class="summary-value">–</span>
+          </div>
+          <div class="summary-item">
+            <span class="summary-label">Open exposure</span>
+            <span id="portfolioExposure" class="summary-value">–</span>
+          </div>
+          <div class="summary-item">
+            <span class="summary-label">Realised P&amp;L</span>
+            <span id="portfolioPnl" class="summary-value">–</span>
+          </div>
+        </div>
+
+        <div class="table-wrapper">
+          <table class="portfolio-table">
+            <thead>
+              <tr>
+                <th>Market</th>
+                <th>Side</th>
+                <th>Stake</th>
+                <th>Status</th>
+                <th>Payout</th>
+              </tr>
+            </thead>
+            <tbody id="portfolioBody"></tbody>
+          </table>
+          <p id="portfolioEmpty" class="empty-hint">
+            No positions yet. Go to <strong>Markets</strong> and place a YES or NO trade.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- LP DESK SECTION -->
+    <section id="lp-desk" class="section">
+      <div class="section-header">
+        <h1 class="section-title">LP Desk</h1>
+        <p class="section-subtitle">
+          Provide liquidity to the hybrid AMM, earn a share of trading fees, and stabilise market prices
+          across all events.
+        </p>
+      </div>
+
+      <div class="lp-grid">
+        <div class="lp-card">
+          <h2 class="lp-title">Pool Overview</h2>
+          <div class="lp-metric-row">
+            <span>Total LP liquidity</span>
+            <span id="lpTotalLiquidity">–</span>
+          </div>
+          <div class="lp-metric-row">
+            <span>Your pool share</span>
+            <span id="lpUserShare">–</span>
+          </div>
+          <div class="lp-metric-row">
+            <span>Your LP position value</span>
+            <span id="lpUserValue">–</span>
+          </div>
+          <div class="lp-metric-row">
+            <span>Simulated APY</span>
+            <span id="lpEstimatedAPY">6–12% (demo)</span>
+          </div>
+          <p class="lp-note">
+            This is a front-end simulation only. No real funds move; all credits are fake demo tokens.
+          </p>
+        </div>
+
+        <div class="lp-card">
+          <h2 class="lp-title">Provide Liquidity</h2>
+          <form id="lpDepositForm">
+            <div class="form-group">
+              <label for="lpDepositAmount" class="form-label">Deposit amount (demo credits)</label>
+              <input
+                type="number"
+                id="lpDepositAmount"
+                class="form-input"
+                min="1"
+                step="1"
+                value="25"
+              />
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Deposit to pool</button>
+          </form>
+
+          <div class="lp-divider"></div>
+
+          <h2 class="lp-title">Withdraw Liquidity</h2>
+          <form id="lpWithdrawForm">
+            <div class="form-group">
+              <label for="lpWithdrawAmount" class="form-label">Withdraw amount (demo credits)</label>
+              <input
+                type="number"
+                id="lpWithdrawAmount"
+                class="form-input"
+                min="1"
+                step="1"
+                value="10"
+              />
+            </div>
+            <button type="submit" class="btn btn-secondary btn-block">Withdraw from pool</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- TRADE MODAL -->
+  <div id="tradeModal" class="modal">
+    <div class="modal-overlay"></div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="tradeMarketTitle">Place Trade</h2>
+        <button class="modal-close" type="button">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Side</label>
+          <div class="toggle-buttons">
+            <button type="button" id="tradeSideYes" class="toggle-btn active" data-side="yes">
+              YES
+            </button>
+            <button type="button" id="tradeSideNo" class="toggle-btn" data-side="no">
+              NO
+            </button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="tradeAmount">Stake (demo credits)</label>
+          <input
+            type="number"
+            id="tradeAmount"
+            class="form-input"
+            min="1"
+            step="1"
+            value="10"
+          />
+        </div>
+
+        <div class="trade-preview">
+          <div class="preview-row">
+            <span>Hybrid price</span>
+            <span id="tradePrice">–</span>
+          </div>
+          <div class="preview-row">
+            <span>Fee to LPs (2%)</span>
+            <span id="tradeFee">–</span>
+          </div>
+          <div class="preview-row">
+            <span>Max payout (demo)</span>
+            <span id="tradeEstPayout">–</span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary cancel-btn" type="button">Cancel</button>
+        <button class="btn btn-primary" id="tradeSubmit" type="button">Confirm Trade</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CREATE MARKET MODAL -->
+  <div id="createMarketModal" class="modal">
+    <div class="modal-overlay"></div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">Create Market</h2>
+        <button class="modal-close" type="button">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="createMarketForm">
+          <div class="form-group">
+            <label for="createMarketQuestion" class="form-label">Market question</label>
+            <input
+              type="text"
+              id="createMarketQuestion"
+              class="form-input"
+              placeholder="Will ETH trade above $5,000 by Dec 2025?"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="createMarketCategory" class="form-label">Category</label>
+            <input
+              type="text"
+              id="createMarketCategory"
+              class="form-input"
+              placeholder="Macro, Politics, Crypto, Sports..."
+            />
+          </div>
+          <div class="form-group">
+            <label for="createMarketDescription" class="form-label">Short description</label>
+            <textarea
+              id="createMarketDescription"
+              class="form-input"
+              rows="3"
+              placeholder="Define resolution criteria and data source / oracle."
+            ></textarea>
+          </div>
+        </form>
+        <p class="modal-hint">
+          For presentation, explain how the oracle resolves the market (e.g. official data source or
+          admin dashboard).
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary cancel-btn" type="button">Cancel</button>
+        <button class="btn btn-primary" id="createMarketSubmit" type="button">Create Market</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Chart.js + App JS -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
