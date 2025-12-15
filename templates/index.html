@@ -13,8 +13,8 @@
     rel="stylesheet"
   />
 
-  <!-- Styles -->
-  <link rel="stylesheet" href="styles.css" />
+  <!-- Styles served by Flask from /static -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
   <!-- Navbar -->
@@ -165,7 +165,7 @@
   <!-- GLOBAL TOAST -->
   <div id="toast" class="toast"></div>
 
-  <!-- Scripts -->
-  <script src="script.js"></script>
+  <!-- Scripts served by Flask from /static -->
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
