@@ -723,8 +723,14 @@ function setupEventHandlers() {
 /* ------------------------------------------------------------------ */
 
 document.addEventListener("DOMContentLoaded", () => {
+  // Reset demo state on every page load
+  localStorage.removeItem(STORAGE_KEY_USERS);
+  localStorage.removeItem(STORAGE_KEY_MARKETS);
+  localStorage.removeItem(STORAGE_KEY_POOL);
+
   loadState();
   setupNavigation();
   setupEventHandlers();
   render();
 });
+
