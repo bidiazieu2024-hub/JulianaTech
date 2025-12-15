@@ -1,728 +1,171 @@
-/* Hibrida Exchange - style.css */
-
-/* Root palette */
-:root {
-  --bg: #020617;
-  --bg-elevated: #02081b;
-  --bg-soft: #050b26;
-  --border-subtle: rgba(148, 163, 184, 0.4);
-  --border-strong: rgba(148, 163, 184, 0.7);
-  --accent-yes: #22c55e;
-  --accent-no: #ef4444;
-  --accent-cyan: #06b6d4;
-  --accent-amber: #fbbf24;
-  --text-main: #e5e7eb;
-  --text-muted: #9ca3af;
-  --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.95);
-  --radius-xl: 18px;
-}
-
-/* Reset */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-html,
-body {
-  height: 100%;
-}
-
-body {
-  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    sans-serif;
-  background:
-    radial-gradient(circle at top, #0b1120 0, #020617 45%, #000 100%),
-    linear-gradient(135deg, #0f172a 0, #020617 60%, #000 100%);
-  color: var(--text-main);
-  -webkit-font-smoothing: antialiased;
-  line-height: 1.5;
-}
-
-/* Layout */
-
-.main-content {
-  max-width: 1200px;
-  margin: 96px auto 40px;
-  padding: 0 24px 40px;
-}
-
-/* Navbar */
-
-.navbar {
-  position: fixed;
-  inset: 0 0 auto 0;
-  height: 72px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 32px;
-  background: radial-gradient(circle at top left, #0f172a 0, #020617 55%);
-  border-bottom: 1px solid var(--border-subtle);
-  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.65);
-  z-index: 20;
-}
-
-.nav-left {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.brand-mark {
-  width: 34px;
-  height: 34px;
-  border-radius: 10px;
-  background: conic-gradient(
-    from 130deg,
-    #38bdf8,
-    #22c55e,
-    #facc15,
-    #38bdf8
-  );
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #020617;
-  font-weight: 800;
-  font-size: 18px;
-  box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.9),
-    0 0 30px rgba(56, 189, 248, 0.6);
-}
-
-.brand {
-  display: flex;
-  flex-direction: column;
-}
-
-.brand-name {
-  font-family: "Space Grotesk", system-ui, sans-serif;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  font-size: 0.95rem;
-}
-
-.brand-subtitle {
-  font-size: 0.7rem;
-  color: var(--text-muted);
-}
-
-.nav-center {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
-.nav-link {
-  position: relative;
-  text-decoration: none;
-  font-size: 0.85rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  padding-bottom: 4px;
-  transition: color 0.2s ease, opacity 0.2s ease;
-}
-
-.nav-link:hover {
-  color: var(--text-main);
-  opacity: 0.9;
-}
-
-.nav-link.active {
-  color: var(--accent-cyan);
-}
-
-.nav-link.active::after {
-  content: "";
-  position: absolute;
-  inset: auto 0 -6px 0;
-  height: 2px;
-  border-radius: 999px;
-  background: linear-gradient(90deg, #22c55e, #06b6d4);
-}
-
-/* Navbar right */
-
-.nav-right {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.demo-balance {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-}
-
-/* Buttons */
-
-.btn {
-  border-radius: 999px;
-  padding: 8px 16px;
-  font-size: 0.8rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  border: 1px solid transparent;
-  cursor: pointer;
-  font-weight: 600;
-  background: transparent;
-  color: var(--text-main);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  transition:
-    background 0.18s ease,
-    border-color 0.18s ease,
-    transform 0.1s ease,
-    box-shadow 0.2s ease,
-    color 0.18s ease;
-}
-
-.btn-primary {
-  background: linear-gradient(135deg, #22c55e, #06b6d4);
-  border-color: rgba(34, 197, 94, 0.8);
-  color: #020617;
-  box-shadow: 0 12px 30px rgba(34, 197, 94, 0.45);
-}
-
-.btn-primary:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 18px 40px rgba(34, 197, 94, 0.55);
-}
-
-.btn-secondary {
-  border-color: var(--border-subtle);
-  background: rgba(15, 23, 42, 0.85);
-  color: var(--text-main);
-}
-
-.btn-secondary:hover {
-  border-color: var(--accent-cyan);
-  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.6);
-}
-
-.btn-secondary.connected {
-  border-color: var(--accent-yes);
-  color: var(--accent-yes);
-}
-
-/* Sections */
-
-.section {
-  display: none;
-}
-
-.section.active {
-  display: block;
-}
-
-.section-header {
-  margin-bottom: 28px;
-}
-
-.section-title {
-  font-family: "Space Grotesk", system-ui, sans-serif;
-  font-size: 1.9rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  margin-bottom: 6px;
-}
-
-.section-subtitle {
-  color: var(--text-muted);
-  font-size: 0.92rem;
-}
-
-/* Reusable card */
-
-.card {
-  background: radial-gradient(circle at top left, #02081b, #030712);
-  border-radius: var(--radius-xl);
-  border: 1px solid var(--border-subtle);
-  box-shadow: var(--shadow-soft);
-  padding: 20px 22px;
-}
-
-/* Markets grid */
-
-.markets-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 18px;
-}
-
-.market-card {
-  background: linear-gradient(145deg, #02081b, #020617);
-  border-radius: var(--radius-xl);
-  border: 1px solid rgba(30, 64, 175, 0.7);
-  box-shadow: var(--shadow-soft);
-  padding: 18px 18px 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.market-header {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.market-labels {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-
-.market-category {
-  padding: 3px 10px;
-  border-radius: 999px;
-  border: 1px solid rgba(129, 140, 248, 0.7);
-  background: rgba(30, 64, 175, 0.6);
-}
-
-.market-liquidity {
-  color: var(--text-muted);
-}
-
-.market-question {
-  font-size: 1rem;
-  font-weight: 600;
-}
-
-.market-meta {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.75rem;
-  color: var(--text-muted);
-}
-
-.market-status {
-  padding: 2px 8px;
-  border-radius: 999px;
-  border: 1px solid transparent;
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-
-.market-status.open {
-  border-color: rgba(56, 189, 248, 0.65);
-  color: #38bdf8;
-  background: rgba(15, 23, 42, 0.8);
-}
-
-.market-status.resolved {
-  border-color: rgba(234, 179, 8, 0.85);
-  color: var(--accent-amber);
-  background: rgba(23, 23, 21, 0.9);
-}
-
-/* Market gauge */
-
-.market-body {
-  display: grid;
-  grid-template-columns: 150px 1fr;
-  gap: 14px;
-  align-items: center;
-}
-
-.market-gauge {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  background: conic-gradient(
-    var(--accent-yes) 0 var(--yes-deg),
-    rgba(31, 41, 55, 0.9) var(--yes-deg) 360deg
-  );
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 0 0 1px rgba(15, 23, 42, 1),
-    0 0 40px rgba(34, 197, 94, 0.25);
-}
-
-.market-gauge-inner {
-  width: 74%;
-  height: 74%;
-  border-radius: 50%;
-  background: radial-gradient(circle at top, #020617, #020617 60%, #0b1120);
-  border: 1px solid rgba(15, 23, 42, 0.9);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-}
-
-.market-gauge-yes {
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: var(--accent-yes);
-}
-
-.market-gauge-no {
-  font-size: 0.75rem;
-  color: var(--text-muted);
-}
-
-/* Prices */
-
-.market-prices {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.price-pill {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-radius: 12px;
-  padding: 8px 10px;
-  font-size: 0.85rem;
-}
-
-.price-pill .label {
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-size: 0.7rem;
-}
-
-.price-pill .value {
-  font-weight: 600;
-}
-
-.yes-pill {
-  background: linear-gradient(
-    90deg,
-    rgba(34, 197, 94, 0.12),
-    rgba(34, 197, 94, 0.03)
-  );
-  border: 1px solid rgba(34, 197, 94, 0.4);
-}
-
-.no-pill {
-  background: linear-gradient(
-    90deg,
-    rgba(239, 68, 68, 0.16),
-    rgba(15, 23, 42, 0.95)
-  );
-  border: 1px solid rgba(239, 68, 68, 0.5);
-}
-
-.yes-pill .value {
-  color: var(--accent-yes);
-}
-
-.no-pill .value {
-  color: var(--accent-no);
-}
-
-.market-footer {
-  display: flex;
-  justify-content: flex-end;
-}
-
-/* Portfolio */
-
-.portfolio-layout {
-  display: grid;
-  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.6fr);
-  gap: 18px;
-}
-
-.summary-row {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.9rem;
-  margin-bottom: 6px;
-}
-
-.summary-row span:first-child {
-  color: var(--text-muted);
-}
-
-.portfolio-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.85rem;
-}
-
-.portfolio-table thead {
-  background: rgba(15, 23, 42, 0.9);
-}
-
-.portfolio-table th,
-.portfolio-table td {
-  padding: 10px 12px;
-  border-bottom: 1px solid rgba(31, 41, 55, 0.7);
-  text-align: left;
-}
-
-.portfolio-table th {
-  font-weight: 600;
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--text-muted);
-}
-
-.portfolio-table tbody tr:nth-child(odd) {
-  background: rgba(15, 23, 42, 0.6);
-}
-
-.portfolio-table tbody tr:nth-child(even) {
-  background: rgba(15, 23, 42, 0.3);
-}
-
-/* LP Pool */
-
-.lp-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1.25fr);
-  gap: 18px;
-}
-
-.stat-row {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.9rem;
-  padding: 4px 0;
-}
-
-.stat-row span:first-child {
-  color: var(--text-muted);
-}
-
-/* Admin */
-
-.admin-market-item {
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
-  border-radius: 14px;
-  padding: 12px 14px;
-  background: rgba(15, 23, 42, 0.9);
-  border: 1px solid rgba(31, 41, 55, 0.9);
-  margin-bottom: 10px;
-}
-
-.admin-market-main h4 {
-  font-size: 0.9rem;
-  margin-bottom: 6px;
-}
-
-.admin-market-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  font-size: 0.75rem;
-  color: var(--text-muted);
-  margin-bottom: 4px;
-}
-
-.admin-market-prices {
-  font-size: 0.8rem;
-  color: var(--text-main);
-  display: flex;
-  gap: 14px;
-}
-
-.admin-market-actions {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-/* Form styles */
-
-.form-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
-  gap: 14px 18px;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.form-label {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-
-.form-input,
-.form-select {
-  border-radius: 10px;
-  border: 1px solid var(--border-subtle);
-  background: rgba(15, 23, 42, 0.95);
-  padding: 9px 11px;
-  color: var(--text-main);
-  font-size: 0.9rem;
-  outline: none;
-}
-
-.form-input:focus,
-.form-select:focus {
-  border-color: var(--accent-cyan);
-  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.6);
-}
-
-.form-inline {
-  display: flex;
-  gap: 10px;
-  align-items: flex-end;
-  margin-top: 8px;
-}
-
-/* Trade modal */
-
-.modal {
-  position: fixed;
-  inset: 0;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 40;
-}
-
-.modal.active {
-  display: flex;
-}
-
-.modal-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(15, 23, 42, 0.85);
-  backdrop-filter: blur(6px);
-}
-
-.modal-content {
-  position: relative;
-  background: radial-gradient(circle at top, #020617, #020617 55%, #02081b);
-  border-radius: 18px;
-  border: 1px solid rgba(37, 99, 235, 0.8);
-  padding: 20px 24px 18px;
-  min-width: min(480px, 90vw);
-  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.85);
-  z-index: 41;
-}
-
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.modal-title {
-  font-family: "Space Grotesk", system-ui, sans-serif;
-  font-size: 1rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.modal-close {
-  border: none;
-  background: transparent;
-  color: var(--text-muted);
-  cursor: pointer;
-  font-size: 1.4rem;
-}
-
-.modal-body {
-  margin-bottom: 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.modal-footer {
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-}
-
-/* Trade toggle */
-
-.trade-toggle {
-  display: inline-flex;
-  border-radius: 999px;
-  padding: 3px;
-  background: rgba(15, 23, 42, 0.9);
-  border: 1px solid rgba(31, 41, 55, 0.9);
-}
-
-.trade-toggle .toggle-btn {
-  border-radius: 999px;
-  border: none;
-  padding: 6px 14px;
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  background: transparent;
-  color: var(--text-muted);
-  cursor: pointer;
-}
-
-.trade-toggle .toggle-btn.active {
-  background: linear-gradient(135deg, #22c55e, #06b6d4);
-  color: #020617;
-}
-
-/* Misc */
-
-.muted {
-  color: var(--text-muted);
-  font-size: 0.9rem;
-}
-
-/* Responsive */
-
-@media (max-width: 900px) {
-  .navbar {
-    padding-inline: 18px;
-    height: auto;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-
-  .nav-center {
-    order: 3;
-    width: 100%;
-    justify-content: center;
-    margin-top: 6px;
-  }
-
-  .main-content {
-    margin-top: 104px;
-    padding-inline: 18px;
-  }
-
-  .market-body {
-    grid-template-columns: 1fr;
-    justify-items: center;
-  }
-
-  .portfolio-layout,
-  .lp-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .modal-content {
-    min-width: 92vw;
-  }
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hibrida – Hybrid Prediction Market</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-left">
+      <div class="brand">
+        <div class="brand-mark">H</div>
+        <div class="brand-text">
+          <span class="brand-name">Hibrida</span>
+          <span class="brand-tagline">Hybrid Prediction Engine</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="nav-center">
+      <a href="#" class="nav-link active" data-section="markets">Markets</a>
+      <a href="#" class="nav-link" data-section="portfolio">Portfolio</a>
+      <a href="#" class="nav-link" data-section="create-market">Create Market</a>
+      <a href="#" class="nav-link" data-section="lp">LP Dashboard</a>
+    </div>
+
+    <div class="nav-right">
+      <div class="balance-pill">
+        <span class="balance-label">Demo Balance</span>
+        <span id="demoBalance" class="balance-value">–</span>
+        <span class="balance-symbol">HBDA</span>
+      </div>
+      <button id="connectButton" class="btn btn-secondary">Connect MetaMask</button>
+    </div>
+  </nav>
+
+  <!-- Main content -->
+  <main class="main">
+    <!-- MARKETS -->
+    <section id="markets" class="section active">
+      <header class="section-header">
+        <h1 class="section-title">Live Markets</h1>
+        <p class="section-subtitle">
+          Trade YES/NO shares on real-world events. Pricing is powered by a hybrid
+          engine combining order book, AMM and liquidity providers.
+        </p>
+      </header>
+
+      <div id="marketsContainer" class="cards-grid"></div>
+    </section>
+
+    <!-- PORTFOLIO -->
+    <section id="portfolio" class="section">
+      <header class="section-header">
+        <h1 class="section-title">My Portfolio</h1>
+        <p class="section-subtitle">
+          View your open positions, realized P&amp;L and claim payouts on resolved
+          markets.
+        </p>
+      </header>
+
+      <div id="portfolioContainer" class="cards-grid"></div>
+    </section>
+
+    <!-- CREATE MARKET -->
+    <section id="create-market" class="section">
+      <header class="section-header">
+        <h1 class="section-title">Create Market</h1>
+        <p class="section-subtitle">
+          Spin up a new YES/NO market backed by the hybrid engine. For the demo,
+          any connected wallet can create a market.
+        </p>
+      </header>
+
+      <div class="panel">
+        <form id="createMarketForm" class="form">
+          <div class="form-row">
+            <label class="form-label" for="marketQuestion">Market question</label>
+            <input
+              id="marketQuestion"
+              class="form-input"
+              type="text"
+              placeholder="Will ETH trade above $5,000 by 31 Dec 2025?"
+              required
+            />
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="marketCategory">Category</label>
+            <select id="marketCategory" class="form-input">
+              <option value="Macro">Macro</option>
+              <option value="Crypto">Crypto</option>
+              <option value="Politics">Politics</option>
+              <option value="Sports">Sports</option>
+              <option value="Technology">Technology</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="marketResolveDate">Resolution date</label>
+            <input id="marketResolveDate" class="form-input" type="date" required />
+          </div>
+
+          <div class="form-row">
+            <label class="form-label" for="marketLiquidity">
+              Seed liquidity (HBDA) – backs the AMM
+            </label>
+            <input
+              id="marketLiquidity"
+              class="form-input"
+              type="number"
+              min="50"
+              step="10"
+              value="200"
+              required
+            />
+          </div>
+
+          <button type="submit" class="btn btn-primary">Create Market</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- LP DASHBOARD (simplified) -->
+    <section id="lp" class="section">
+      <header class="section-header">
+        <h1 class="section-title">LP Dashboard</h1>
+        <p class="section-subtitle">
+          In this classroom demo, the protocol LP pool is simulated globally.
+          Fees from trading flow into the pool and affect pricing.
+        </p>
+      </header>
+
+      <div id="lpContainer" class="panel lp-panel">
+        <div class="lp-metric">
+          <div class="lp-label">Protocol Liquidity Pool</div>
+          <div id="lpTotalLiquidity" class="lp-value">– HBDA</div>
+          <div class="lp-hint">
+            Used by the AMM to quote prices and settle winning positions.
+          </div>
+        </div>
+        <div class="lp-metric">
+          <div class="lp-label">Trading Fee</div>
+          <div id="lpFeeRate" class="lp-value">2%</div>
+          <div class="lp-hint">
+            Collected on each trade and added to the simulated pool.
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- GLOBAL TOAST -->
+  <div id="toast" class="toast"></div>
+
+  <!-- Scripts -->
+  <script src="script.js"></script>
+</body>
+</html>
